@@ -42,7 +42,7 @@ export const Navigation = () => {
   ];
 
   return (
-    <div ref={navRef} className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40">
+    <div ref={navRef} className="fixed top-4 left-1/2 -translate-x-1/2 z-40">
       <Dock className="items-end pb-3">
         {navItems.map((item) => {
           const Icon = item.icon;
