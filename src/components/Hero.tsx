@@ -1,16 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { AnimatePresence, motion } from "framer-motion";
 import { InteractiveCanvas } from "./InteractiveCanvas";
 
 interface HeroProps {
   onAnimationComplete: () => void;
 }
 
+const bioTexts = [
+  "Crafting intuitive user interfaces with pixel-perfect attention to detail",
+  "Transforming complex ideas into seamless digital experiences",
+  "Building responsive designs that blend aesthetics with functionality"
+];
+
 export const Hero = ({ onAnimationComplete }: HeroProps) => {
   const nameRef = useRef<HTMLDivElement>(null);
   const underlineRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [currentBioIndex, setCurrentBioIndex] = useState(0);
 
   useEffect(() => {
     const name = "Syed Iyanulla";
@@ -47,21 +54,17 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
         duration: 0.8,
         ease: "power3.out",
       }, "-=0.4")
-      .to({}, { duration: 0.8 })
-      .to([nameRef.current, underlineRef.current], {
-        scale: 0.4,
-        x: "-35vw",
-        y: "-40vh",
-        duration: 1,
-        ease: "power3.inOut",
-      })
-      .to(subtitleRef.current, {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      }, "-=0.5");
+      .to({}, { duration: 1 });
   }, [onAnimationComplete]);
+
+  useEffect(() => {
+    if (!isAnimating) {
+      const interval = setInterval(() => {
+        setCurrentBioIndex((prev) => (prev + 1) % bioTexts.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [isAnimating]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -82,13 +85,20 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
         </div>
 
         {!isAnimating && (
-          <p
-            ref={subtitleRef}
-            className="text-xl md:text-2xl text-muted-foreground opacity-0 max-w-2xl mx-auto px-4"
-            style={{ transform: "translateX(50px)" }}
-          >
-            I architect and build end-to-end web applications with modern technologies
-          </p>
+          <div className="h-16 flex items-center justify-center max-w-2xl mx-auto px-4">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={currentBioIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="text-xl md:text-2xl text-muted-foreground"
+              >
+                {bioTexts[currentBioIndex]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
         )}
       </div>
     </section>
