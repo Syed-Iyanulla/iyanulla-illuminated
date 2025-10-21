@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
-import { InteractiveCanvas } from "./InteractiveCanvas";
+import { renderCanvas } from "@/components/ui/canvas";
 
 interface HeroProps {
   onAnimationComplete: () => void;
@@ -18,6 +18,10 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
   const underlineRef = useRef<HTMLDivElement>(null);
   const [isAnimating, setIsAnimating] = useState(true);
   const [currentBioIndex, setCurrentBioIndex] = useState(0);
+
+  useEffect(() => {
+    renderCanvas();
+  }, []);
 
   useEffect(() => {
     const name = "Syed Iyanulla";
@@ -68,7 +72,10 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <InteractiveCanvas />
+      <canvas
+        className="pointer-events-none absolute inset-0"
+        id="canvas"
+      />
       
       <div className="relative z-10 text-center">
         <div 
