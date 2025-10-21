@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { renderCanvas } from "@/components/ui/canvas";
+import { AnimatedText } from "@/components/ui/animated-text";
 
 interface HeroProps {
   onAnimationComplete: () => void;
@@ -14,8 +14,6 @@ const bioTexts = [
 ];
 
 export const Hero = ({ onAnimationComplete }: HeroProps) => {
-  const nameRef = useRef<HTMLDivElement>(null);
-  const underlineRef = useRef<HTMLDivElement>(null);
   const [isAnimating, setIsAnimating] = useState(true);
   const [currentBioIndex, setCurrentBioIndex] = useState(0);
 
@@ -24,41 +22,13 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
   }, []);
 
   useEffect(() => {
-    const name = "Syed Iyanulla";
-    const letters = name.split("");
-    
-    if (nameRef.current) {
-      nameRef.current.innerHTML = letters
-        .map((letter, i) => 
-          `<span class="inline-block opacity-0" style="transform: translateY(50px)">${
-            letter === " " ? "&nbsp;" : letter
-          }</span>`
-        )
-        .join("");
-    }
+    // Trigger animation complete after name animation finishes
+    const timer = setTimeout(() => {
+      setIsAnimating(false);
+      onAnimationComplete();
+    }, 2500);
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setIsAnimating(false);
-        setTimeout(onAnimationComplete, 500);
-      },
-    });
-
-    const letterSpans = nameRef.current?.querySelectorAll("span");
-
-    tl.to(letterSpans, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.05,
-      ease: "power3.out",
-    })
-      .to(underlineRef.current, {
-        scaleX: 1,
-        duration: 0.8,
-        ease: "power3.out",
-      }, "-=0.4")
-      .to({}, { duration: 1 });
+    return () => clearTimeout(timer);
   }, [onAnimationComplete]);
 
   useEffect(() => {
@@ -78,21 +48,18 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
       />
       
       <div className="relative z-10 text-center">
-        <div 
-          ref={nameRef} 
-          className="text-7xl md:text-9xl font-bold text-foreground mb-4"
+        <AnimatedText
+          text="Syed Iyanulla"
+          textClassName="text-7xl md:text-9xl font-bold text-foreground"
+          underlineGradient="from-primary via-purple-500 to-pink-500"
+          underlineHeight="h-2"
+          underlineOffset="-bottom-4"
+          duration={0.05}
+          delay={0.05}
         />
-        
-        <div className="flex justify-center mb-8">
-          <div
-            ref={underlineRef}
-            className="h-2 w-64 md:w-96 gradient-text origin-left"
-            style={{ transform: "scaleX(0)" }}
-          />
-        </div>
 
         {!isAnimating && (
-          <div className="h-16 flex items-center justify-center max-w-2xl mx-auto px-4">
+          <div className="h-16 flex items-center justify-center max-w-2xl mx-auto px-4 mt-12">
             <AnimatePresence mode="wait">
               <motion.p
                 key={currentBioIndex}
