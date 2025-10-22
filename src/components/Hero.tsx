@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedText } from "@/components/ui/animated-text";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import { renderCanvas } from "@/components/ui/canvas";
 
 interface HeroProps {
   onAnimationComplete: () => void;
@@ -18,6 +19,8 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
   const [currentBioIndex, setCurrentBioIndex] = useState(0);
 
   useEffect(() => {
+    renderCanvas();
+    
     // Trigger animation complete after name animation finishes
     const timer = setTimeout(() => {
       setIsAnimating(false);
@@ -66,6 +69,10 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
           </div>
         )}
       </div>
+      <canvas
+        className="pointer-events-none absolute inset-0 mx-auto"
+        id="canvas"
+      ></canvas>
     </BackgroundBeamsWithCollision>
   );
 };
