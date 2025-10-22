@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MaskContainer } from "@/components/ui/svg-mask-effect";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,50 +37,25 @@ export const About = () => {
           About Me
         </h2>
         
-        <MaskContainer
-          revealText={
-            <div className="space-y-6 text-lg text-muted-foreground">
-              <p className="animate-on-scroll">
-                Experienced Full Stack Developer specializing in MERN stack, with expertise 
-                in responsive UIs, robust backend systems, and scalable solutions using React, 
-                JavaScript, Firebase, and SQL databases.
-              </p>
-              
-              <p className="animate-on-scroll">
-                I architect end-to-end web applications using React for dynamic front-end 
-                experiences and modern JavaScript technologies. My focus is on building robust 
-                backend architectures and optimizing database performance for scalable web applications.
-              </p>
-              
-              <p className="animate-on-scroll">
-                Currently pursuing Bachelor of Information Science at GM Institute of Technology, 
-                Davangere, Karnataka (2022-2026).
-              </p>
-            </div>
-          }
-          className="h-auto min-h-[500px] border-none bg-transparent"
-          size={10}
-          revealSize={400}
-        >
-          <div className="space-y-6 text-lg px-6">
-            <p>
-              Experienced Full Stack Developer specializing in MERN stack, with expertise 
-              in responsive UIs, robust backend systems, and scalable solutions using React, 
-              JavaScript, Firebase, and SQL databases.
-            </p>
-            
-            <p>
-              I architect end-to-end web applications using React for dynamic front-end 
-              experiences and modern JavaScript technologies. My focus is on building robust 
-              backend architectures and optimizing database performance for scalable web applications.
-            </p>
-            
-            <p>
-              Currently pursuing Bachelor of Information Science at GM Institute of Technology, 
-              Davangere, Karnataka (2022-2026).
-            </p>
-          </div>
-        </MaskContainer>
+        <div className="space-y-6">
+          <TextGenerateEffect
+            words="Experienced Full Stack Developer specializing in MERN stack, with expertise in responsive UIs, robust backend systems, and scalable solutions using React, JavaScript, Firebase, and SQL databases."
+            className="text-lg text-muted-foreground"
+            duration={0.5}
+          />
+          
+          <TextGenerateEffect
+            words="I architect end-to-end web applications using React for dynamic front-end experiences and modern JavaScript technologies. My focus is on building robust backend architectures and optimizing database performance for scalable web applications."
+            className="text-lg text-muted-foreground"
+            duration={0.5}
+          />
+          
+          <TextGenerateEffect
+            words="Currently pursuing Bachelor of Information Science at GM Institute of Technology, Davangere, Karnataka (2022-2026)."
+            className="text-lg text-muted-foreground"
+            duration={0.5}
+          />
+        </div>
       </div>
     </section>
   );
