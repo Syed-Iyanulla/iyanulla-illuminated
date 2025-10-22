@@ -39,32 +39,47 @@ export const About = () => {
         
         <MaskContainer
           revealText={
-            <div className="space-y-6 text-lg">
-              <p className="animate-on-scroll text-foreground">
+            <div className="space-y-6 text-lg text-muted-foreground">
+              <p className="animate-on-scroll">
                 Experienced Full Stack Developer specializing in MERN stack, with expertise 
                 in responsive UIs, robust backend systems, and scalable solutions using React, 
                 JavaScript, Firebase, and SQL databases.
               </p>
               
-              <p className="animate-on-scroll text-foreground">
+              <p className="animate-on-scroll">
                 I architect end-to-end web applications using React for dynamic front-end 
                 experiences and modern JavaScript technologies. My focus is on building robust 
                 backend architectures and optimizing database performance for scalable web applications.
               </p>
               
-              <p className="animate-on-scroll text-foreground">
+              <p className="animate-on-scroll">
                 Currently pursuing Bachelor of Information Science at GM Institute of Technology, 
                 Davangere, Karnataka (2022-2026).
               </p>
             </div>
           }
-          className="h-auto min-h-[600px] border-none bg-transparent"
+          className="h-auto min-h-[500px] border-none bg-transparent"
           size={10}
           revealSize={400}
         >
-          <span className="text-primary">Full Stack Developer</span> with expertise in{" "}
-          <span className="text-primary">MERN stack</span>, creating scalable solutions and{" "}
-          <span className="text-primary">robust backend systems</span>.
+          <div className="space-y-6 text-lg px-6">
+            <p>
+              Experienced Full Stack Developer specializing in MERN stack, with expertise 
+              in responsive UIs, robust backend systems, and scalable solutions using React, 
+              JavaScript, Firebase, and SQL databases.
+            </p>
+            
+            <p>
+              I architect end-to-end web applications using React for dynamic front-end 
+              experiences and modern JavaScript technologies. My focus is on building robust 
+              backend architectures and optimizing database performance for scalable web applications.
+            </p>
+            
+            <p>
+              Currently pursuing Bachelor of Information Science at GM Institute of Technology, 
+              Davangere, Karnataka (2022-2026).
+            </p>
+          </div>
         </MaskContainer>
       </div>
     </section>
