@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { renderCanvas } from "@/components/ui/canvas";
 import { AnimatedText } from "@/components/ui/animated-text";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 interface HeroProps {
   onAnimationComplete: () => void;
@@ -16,10 +16,6 @@ const bioTexts = [
 export const Hero = ({ onAnimationComplete }: HeroProps) => {
   const [isAnimating, setIsAnimating] = useState(true);
   const [currentBioIndex, setCurrentBioIndex] = useState(0);
-
-  useEffect(() => {
-    renderCanvas();
-  }, []);
 
   useEffect(() => {
     // Trigger animation complete after name animation finishes
@@ -41,12 +37,7 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
   }, [isAnimating]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <canvas
-        className="pointer-events-none absolute inset-0"
-        id="canvas"
-      />
-      
+    <BackgroundBeamsWithCollision className="min-h-screen">
       <div className="relative z-10 text-center">
         <AnimatedText
           text="Syed Iyanulla"
@@ -75,6 +66,6 @@ export const Hero = ({ onAnimationComplete }: HeroProps) => {
           </div>
         )}
       </div>
-    </section>
+    </BackgroundBeamsWithCollision>
   );
 };
